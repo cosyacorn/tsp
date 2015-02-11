@@ -13,9 +13,10 @@ int *shortest_route(FILE *fp, double **dists, int num_cities);
 
 int main(int argc, char **argv){
 
-  int nflag, fflag, *order, opt, num_cities, i, j;
+  int nflag, fflag, *order, opt, num_cities, i, j, msec;
   double **points, **dists;
   FILE *fp, *points_file;
+  clock_t start, diff;
 
   srand48(time(NULL));
   nflag=0;
@@ -101,8 +102,16 @@ int main(int argc, char **argv){
   //have written file and now need to read it
   fp=fopen("routes.txt", "r");
 
+
+  start=clock();
   //returns the shortest route
   order=shortest_route(fp, dists, num_cities);
+  diff=clock()-start;
+
+  //to get timing data for task 2
+  msec=diff*1000/CLOCKS_PER_SEC;
+  //printf("%d\n", msec);
+
 
   //print shortest route
   for(i=0;i<num_cities;i++)
