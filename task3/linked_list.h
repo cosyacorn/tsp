@@ -1,6 +1,5 @@
-#include<stdlib.h>
 #include<stdio.h>
-
+#include<stdlib.h>
 
 typedef struct points_s
 {
@@ -22,13 +21,15 @@ cities* alloc_city(int new_city){
 
 void append(cities *h, int new_city)
 {
-  while(h->next != NULL){
+     while(h->next != NULL){
     h=h->next;
   }
   cities *w = alloc_city(new_city);
   h->next=w;
   w->prev=h;
 }
+
+
 
 void print_list(cities *c)
 {
@@ -82,27 +83,4 @@ cities *delete(cities *c, int search){
   return c;
 }
 
-
-//double dist(double **coords, int point_a, int point_b);
-
-void optimal_route(double ** dists, int num_cities){
-
-  int start,i;
-  double dist;
-
-  start=rand();
-
-  cities * c=alloc_city(0);
-  for(i=1;i<num_cities;i++){
-    // append(c, i);
-    printf("ijmiejd");
-  }
-  delete(c, start);
-  /*while(c!=NULL){
-    dist=dists[start][c->data];
-    printf("%f\n", dist);
-    c=c->next;
-    }*/
-
-}
 

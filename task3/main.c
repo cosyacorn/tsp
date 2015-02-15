@@ -3,9 +3,10 @@
 #include<time.h>
 #include<unistd.h>
 #include<math.h>
+#include<ctype.h>
+#include<string.h>
 
 double dist(double **coords, int point_a, int point_b);
-void permute(int *order, int n, int i, FILE *fp);
 void free_2d(double **mat, int size);
 double route_dist(double **dists, int num_cities, int *route);
 int *shortest_route(FILE *fp, double **dists, int num_cities);
@@ -13,13 +14,13 @@ int *shortest_route(FILE *fp, double **dists, int num_cities);
 
 int main(int argc, char **argv){
 
-  int fflag, *order, opt, num_cities, i, j, msec, numlines;
+  int fflag, opt, num_cities, i, j, msec, numlines, num;
   double **points, **dists;
-  FILE *fp, *points_file;
+  FILE *points_file;
   clock_t start, diff;
   char line[100], ch;
 
-  srand48(time(NULL));
+  srand(time(NULL));
   fflag=0;
 
   //COMMAND LINE 
@@ -52,8 +53,11 @@ int main(int argc, char **argv){
       if (ch=='\n')
         ++numlines;
 
+
+    //GO BACK TO START OF FILE
     rewind(points_file);
 
+    //SKIP FIRST SIX LINES
     for(i=0;i<6;i++){
       fgets(line, sizeof(line), points_file);
     }
@@ -63,13 +67,17 @@ int main(int argc, char **argv){
     points=(double**)malloc(sizeof(double*)*num_cities);
     for(i=0;i<num_cities;i++){
       points[i]=(double*)malloc(sizeof(double)*2);
-      fscanf(points_file,"%lf %lf;", &points[i][0], &points[i][1]);
+      fgets(line,sizeof(line),points_file);
+      num = atoi(strtok(line, " "));
+      for(j=0;j<2;j++){
+        points[num-1][j]=atof(strtok(NULL, " "));
+      }
     }
     fclose(points_file);
   }
+  printf("hi tara");
 
-
-  /*
+  
   //SET UP DIST MATRIX
   dists=(double**)malloc(sizeof(double*)*num_cities);
   for(i=0;i<num_cities;i++){
@@ -78,9 +86,9 @@ int main(int argc, char **argv){
       dists[i][j]=dist(points, i, j);
     }
   }
-  */
   
-
+  printf("%d\n", num_cities);
+  optimal_route(dists, num_cities);
 
   /*
   fp=fopen("routes.txt", "w+");
@@ -115,7 +123,7 @@ int main(int argc, char **argv){
 
   free_2d(points, num_cities);
   free_2d(dists, num_cities);
-  //free(order);
+  
 
   return 0;
 }
