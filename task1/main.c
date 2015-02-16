@@ -95,6 +95,8 @@ int main(int argc, char **argv){
 
   fp=fopen("routes.txt", "w+");
 
+
+  start=clock();
   //GET ALL PERMUTATIONS AND WRITE TO A FILE
   permute(order, num_cities, 1, fp);
 
@@ -103,14 +105,14 @@ int main(int argc, char **argv){
   fp=fopen("routes.txt", "r");
 
 
-  start=clock();
+ 
   //returns the shortest route
   order=shortest_route(fp, dists, num_cities);
   diff=clock()-start;
 
   //to get timing data for task 2
   msec=diff*1000/CLOCKS_PER_SEC;
-  //printf("%d\n", msec);
+  printf("%d\n", msec);
 
 
   //print shortest route
@@ -123,7 +125,7 @@ int main(int argc, char **argv){
 
   free_2d(points, num_cities);
   free_2d(dists, num_cities);
-  //free(order);
+  free(order);
 
   return 0;
 }
