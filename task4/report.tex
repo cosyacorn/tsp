@@ -40,9 +40,13 @@ From this figure we can see how the computation time grows rapidly with the incr
 
 \section{Task 3}
 
+For this I edited my code to work with the file format similar to \verb!att48.tsp!. This just involved changing how the file was read to skip the first six lines of the file and read in the coordinates correctly.
+
+I then tried to implement an nearest neighbour algorithm to solve the problem heuristically. This method involves choosing a point to start from at random. The next city is then chosen as simply whichever one is closest. Then then next city is the one that is closest and hasn't been visited yet. This process is then repeated until all the cities are visited. I tried to implement this with a linked list to keep track of the cities that had yet to be visited. But ran into difficulties and couldn't get it to work fully.
 
 \section{Task 4}
-Task 4 is this report. And I added the section before realising how stupid adding it was, and had a good laugh at myself.
+
+The TSP is a very difficult problem to parallise, and the speedup when it has been parallised isn't great and it doesn't scale well at all. The brute force approach can be trivially parallised using the master slave, by giving each proc a different path to calculate but this doesn't really give too much of a performance boost. However, some of the heuristic methods are more friendly to being parallelised, in particular the genetic algorithm. The genetic algorithm can be effictively parallised and things like genetic mutations would help to prevent the solution getting stuck in a local minimum, which happens in many of the methods that only find an optimal solution and not the best solution.
 
 
 
