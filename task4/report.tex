@@ -1,4 +1,5 @@
 \documentclass{article}
+\usepackage{graphicx}
 \begin{document}
 
 \title{5611 HW3: The Travelling Salesman Problem}
@@ -27,6 +28,15 @@ Also, since I wrote to the file and then wanted to read from it. It meant that I
 Once all the possible permutations (routes) are read, the distances of each is calculated (by simply adding the relevant elements of the distance matrix) and the shortest one is returned. This is done in the \verb!shortest_route.c! function. The shortest path is then printed to the terminal. And all the mallocs are then freed.
 
 \section{Task 2}
+
+The times for a solution to be obtained as a function of the number of cities is shown in the figure.
+
+\begin{figure}
+\includegraphics[scale=0.5]{../task2/plot.jpg}
+\caption{This figure shows the time taken to compute the solution as a function of the number of cities.}
+\end{figure}
+
+From this figure we can see how the computation time grows rapidly with the increase in the number of cities. We can see how the time taken obeys the rule $t_{n+1} = t_n c_n$. Where $t_{n+1}$ is the time for the next step (presuming $t_n$ is the time for the current step) and $c_n$ is the number of cities in the current step. From this we can see that $t_{n+1}=c_n c_{n-1} t_{n-1}$ and then continuing this we see $t_{n+1} = c_n ... c_0 t_0 = c_n ! t_0$. So if we take $t_10 = 390$ with $n=10$ then we see that $t_20 = \frac{19!}{10!}t_{10}$, so $t_{10}=1.3 \times 10^{13}$. And similarly we find that $t_50=6.6 \times 10^{58}$ and $t_100 = 1.0 \times 10^{152}$. All times are in msecs.
 
 \section{Task 3}
 
